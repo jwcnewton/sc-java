@@ -39,5 +39,20 @@ UserModel playlist = scs.GetPlaylistTracks(playlistUri);
 System.out.println(playlist.tracks.size());
 ```
 
+Downloading the latest liked track
+```java
+String clientId = "";
+String userName = "newtnn";
+String outputFolder = "/users/test/Documents/music";
+
+SoundcloudScrapper scs = new SoundcloudScrapper(clientId);
+
+UserModel likes = scs.GetUsersLikes(userName);
+
+StreamService streamService = new StreamService(clientId);
+
+streamService.ParseUrlStreamToFile(likes.get(0), outputFolder);
+```
+
 ## Dependancies
 [Google Rest Client](https://developers.google.com/api-client-library/java/google-http-java-client/)
