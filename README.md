@@ -22,7 +22,7 @@ String userName = "newtnn";
 
 SoundcloudScrapper scs = new SoundcloudScrapper(clientId);
 
-UserModel likes = scs.GetUsersLikes(userName);
+List<TracksModel> likes = scs.GetUsersLikes(userName);
 
 System.out.println(likes.size());
 ```
@@ -34,7 +34,7 @@ String playlistUri = "https://soundcloud.com/newtnn/sets/thick-mix";
 
 SoundcloudScrapper scs = new SoundcloudScrapper(clientId);
 
-UserModel playlist = scs.GetPlaylistTracks(playlistUri);
+PlaylistModel playlist = scs.GetPlaylistTracks(playlistUri);
 
 System.out.println(playlist.tracks.size());
 ```
@@ -47,7 +47,7 @@ String outputFolder = "/users/test/Documents/music";
 
 SoundcloudScrapper scs = new SoundcloudScrapper(clientId);
 
-UserModel likes = scs.GetUsersLikes(userName);
+List<TracksModel> likes = scs.GetUsersLikes(userName);
 
 StreamService streamService = new StreamService(clientId);
 
