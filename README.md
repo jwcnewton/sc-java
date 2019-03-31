@@ -27,5 +27,17 @@ UserModel likes = scs.GetUsersLikes(userName);
 System.out.println(likes.size());
 ```
 
+Getting tracks in a playlist
+```java
+String clientId = "";
+String playlistUri = "https://soundcloud.com/newtnn/sets/thick-mix";
+
+SoundcloudScrapper scs = new SoundcloudScrapper(clientId);
+
+UserModel playlist = scs.GetPlaylistTracks(playlistUri);
+
+System.out.println(playlist.tracks.size());
+```
+
 ## Dependancies
 [Google Rest Client](https://developers.google.com/api-client-library/java/google-http-java-client/)
