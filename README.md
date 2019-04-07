@@ -1,6 +1,25 @@
 # sc-java
 Java port of https://github.com/jwcnewton/sc-node
 
+## Maven (Jitpack)
+
+```xml
+...
+<repositories>
+  <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.jwcnewton</groupId>
+    <artifactId>sc-java</artifactId>
+    <version>latest</version>
+</dependency>
+...
+```
+
 ## Usage
 
 Getting user details
