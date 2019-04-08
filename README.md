@@ -54,5 +54,39 @@ StreamService streamService = new StreamService(clientId);
 streamService.ParseUrlStreamToFile(likes.get(0), outputFolder);
 ```
 
+## Maven (Jitpack)
+
+```xml
+...
+<repositories>
+  <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.jwcnewton</groupId>
+    <artifactId>sc-java</artifactId>
+    <version>latest</version>
+</dependency>
+...
+```
+
+## Gradle (Jitpack)
+
+```gradle
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
+}
+
+dependencies {
+    implementation 'com.github.jwcnewton:sc-java:latest'
+}
+```
+
 ## Dependancies
 [Google Rest Client](https://developers.google.com/api-client-library/java/google-http-java-client/)
