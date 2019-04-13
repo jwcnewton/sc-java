@@ -21,8 +21,6 @@ public class StreamService {
     public void ParseUrlStreamToFile(TracksModel track, String outLocation) throws Exception {
         String sanitizedTitle = StringSanitize.SanitizeString(track.title);
 
-        System.out.println(sanitizedTitle);
-
         final FileOutputStream fileOut = CreateOutFile(outLocation, sanitizedTitle);
 
         final InputStream stream = CreateInStream(track.stream_url);
