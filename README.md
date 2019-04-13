@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/jwcnewton/sc-java.svg)](https://jitpack.io/#jwcnewton/sc-java)
+
 # sc-java
 Java port of https://github.com/jwcnewton/sc-node
 
