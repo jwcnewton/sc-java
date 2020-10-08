@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SoundcloudScrapper {
-    private String soundcloudApiUri = "https://api.soundcloud.com";
+    private String soundcloudApiUri = "https://api-v2.soundcloud.com";
     private String playlistPlaceholder = "_playlist_";
     private String usernamePlaceholder = "_username_";
     private String limitPlaceholder = "_limit_";
@@ -21,13 +21,13 @@ public class SoundcloudScrapper {
             throw new Exception("Client id cannot be null");
         }
 
-        soundcloudApiUserUri = String.format("%s/resolve.json?url=https://soundcloud.com/%s&client_id=%s",
+        soundcloudApiUserUri = String.format("%s/resolve?url=https://soundcloud.com/%s&client_id=%s",
                 soundcloudApiUri, usernamePlaceholder, clientId);
 
         soundcloudApiUserLikes = String.format("%s/users/%s/favorites?limit=%s&format=json&client_id=%s",
                 soundcloudApiUri, usernamePlaceholder, limitPlaceholder, clientId);
 
-        soundcloudApiPlaylist = String.format("%s/resolve.json?url=%s?format=json&client_id=%s",
+        soundcloudApiPlaylist = String.format("%s/resolve?url=%s?format=json&client_id=%s",
                 soundcloudApiUri, playlistPlaceholder, clientId);
 
         adaptor = NetworkAdaptor.getInstance();
@@ -35,6 +35,7 @@ public class SoundcloudScrapper {
 
     public UserModel GetUserDetails(String userName) throws Exception {
         String userProfileUri = soundcloudApiUserUri.replace(usernamePlaceholder, userName);
+
         return (UserModel) adaptor.getRequest(userProfileUri, UserModel.class);
     }
 
