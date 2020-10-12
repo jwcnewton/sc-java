@@ -1,6 +1,7 @@
 package Utils;
 
-import Models.TracksModel;
+import Models.LikedTrack;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,12 +19,18 @@ public class StreamService {
         clientId = client_Id;
     }
 
-    public void ParseUrlStreamToFile(TracksModel track, String outLocation) throws Exception {
-        String sanitizedTitle = StringSanitize.SanitizeString(track.title);
+    public void ParseUrlStreamToFile(LikedTrack track, String outLocation) throws Exception {
+        String sanitizedTitle = StringSanitize.SanitizeString(track.getTrack().getTitle());
 
         final FileOutputStream fileOut = CreateOutFile(outLocation, sanitizedTitle);
 
-        final InputStream stream = CreateInStream(track.stream_url);
+        String trackResourceUri = String.format("%s?client_id=%s", track.getTrack().getMedia()
+                .getTranscodings().get(1).getUrl(), clientId);
+
+
+        LinkedTreeMap streamResource = (LinkedTreeMap) GetDownloadUri(trackResourceUri);
+
+        final InputStream stream = CreateInStream(streamResource.get("url").toString());
 
         int currentBytePos;
 
@@ -33,6 +40,8 @@ public class StreamService {
 
         stream.close();
         fileOut.close();
+
+        System.out.println("Downloaded: " + sanitizedTitle);
     }
 
     private FileOutputStream CreateOutFile(String outLocation, String sanitizedTitle) throws FileNotFoundException {
@@ -42,8 +51,10 @@ public class StreamService {
     }
 
     private InputStream CreateInStream(String streamUrl) throws Exception {
-        String formattedUri = String.format("%s?client_id=%s", streamUrl, clientId);
+        return new URL(streamUrl).openStream();
+    }
 
-        return new URL(formattedUri).openStream();
+    private Object GetDownloadUri(String uri) throws Exception {
+        return NetworkAdaptor.getInstance().getRequest(uri, Object.class);
     }
 }

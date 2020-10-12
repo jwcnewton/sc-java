@@ -24,8 +24,8 @@ public class SoundcloudScrapper {
         soundcloudApiUserUri = String.format("%s/resolve?url=https://soundcloud.com/%s&client_id=%s",
                 soundcloudApiUri, usernamePlaceholder, clientId);
 
-        soundcloudApiUserLikes = String.format("%s/users/%s/favorites?limit=%s&format=json&client_id=%s",
-                soundcloudApiUri, usernamePlaceholder, limitPlaceholder, clientId);
+        soundcloudApiUserLikes = String.format("%s/users/%s/track_likes?client_id=%s&limit=%s",
+                soundcloudApiUri, usernamePlaceholder, clientId, limitPlaceholder);
 
         soundcloudApiPlaylist = String.format("%s/resolve?url=%s?format=json&client_id=%s",
                 soundcloudApiUri, playlistPlaceholder, clientId);
@@ -39,15 +39,15 @@ public class SoundcloudScrapper {
         return (UserModel) adaptor.getRequest(userProfileUri, UserModel.class);
     }
 
-    public List<TracksModel> GetUsersLikes(String userName, int limit) throws Exception {
+    public List<LikedTrack> GetUsersLikes(String userName, int limit) throws Exception {
         String userLikesUri = soundcloudApiUserLikes
                 .replace(usernamePlaceholder, userName)
                 .replace(limitPlaceholder, Integer.toString(limit));
-        TracksModel[] tracks = (TracksModel[]) adaptor.getRequest(userLikesUri, TracksModel[].class);
-        return Arrays.asList(tracks);
+        LikesResult tracks = (LikesResult) adaptor.getRequest(userLikesUri, LikesResult.class);
+        return tracks.collection;
     }
 
-    public List<TracksModel> GetUsersLikes(String userName) throws Exception {
+    public List<LikedTrack> GetUsersLikes(String userName) throws Exception {
         return GetUsersLikes(userName, defaultLimit);
     }
 

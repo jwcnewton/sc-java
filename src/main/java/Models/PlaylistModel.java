@@ -39,7 +39,7 @@ public class PlaylistModel {
     @Key
     public String license;
     @Key
-    public List<TracksModel> tracks;
+    public List<Track> tracks;
     @Key
     public String playlistType;
     @Key
